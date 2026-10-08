@@ -1,0 +1,1400 @@
+/* ==========================================================================
+   Campus Customs: varsity design system
+   Vibrant navy + varsity gold, Outfit for display text and Inter for body text.
+   ========================================================================== */
+
+/* Lets the gradient border's angle be animated (Chrome, Edge, Safari, Firefox 128+). Where it
+   is not supported the border simply stays still. */
+@property --angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+:root {
+  /* Palette */
+  --navy-950: #040c2b;
+  --navy-900: #061238;
+  --navy: #0d2a85;
+  --navy-light: #1d44c2;
+  --navy-soft: #a8bdff;
+  --gold: #ffc629;
+  --gold-deep: #f5a300;
+  --gold-soft: #fff3c9;
+  --bg: #f3f5fc;
+  --surface: #ffffff;
+  --tint: #e9eeff;
+  --border: #d6def5;
+  --text: #0a1640;
+  --muted: #4a557f;
+  --danger: #c2271d;
+  --success: #14612f;
+
+  /* Type */
+  --font-display: 'Outfit Variable', 'Outfit', system-ui, sans-serif;
+  --font-body: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Motion and depth */
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --shadow-sm: 0 2px 10px rgba(10, 22, 64, 0.08);
+  --shadow-lg: 0 20px 44px rgba(10, 22, 64, 0.24);
+  --grad-border: conic-gradient(
+    from var(--angle),
+    var(--gold),
+    var(--navy-light),
+    var(--gold-deep),
+    var(--navy),
+    var(--gold)
+  );
+
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background:
+    radial-gradient(1100px 480px at 88% -8%, rgba(255, 198, 41, 0.2), transparent 60%),
+    radial-gradient(900px 520px at -8% 4%, rgba(29, 68, 194, 0.15), transparent 55%), var(--bg);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ---------- Motion keyframes ---------- */
+@keyframes spin-angle {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@keyframes pulse-urgent {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 198, 41, 0.75);
+  }
+  50% {
+    transform: scale(1.07);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(255, 198, 41, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 198, 41, 0);
+  }
+}
+
+@keyframes glow-green {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(41, 211, 106, 0.7),
+      0 0 6px 1px rgba(41, 211, 106, 0.8);
+  }
+  50% {
+    box-shadow:
+      0 0 0 6px rgba(41, 211, 106, 0),
+      0 0 12px 3px rgba(41, 211, 106, 0.9);
+  }
+}
+
+@keyframes chat-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(28px) scale(0.78);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.04);
+  }
+  80% {
+    transform: translateY(2px) scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes bubble-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes typing-bounce {
+  0%,
+  60%,
+  100% {
+    opacity: 0.4;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes toggle-ping {
+  0%,
+  100% {
+    box-shadow:
+      0 8px 24px rgba(245, 163, 0, 0.5),
+      0 0 0 0 rgba(255, 198, 41, 0.6);
+  }
+  60% {
+    box-shadow:
+      0 8px 24px rgba(245, 163, 0, 0.5),
+      0 0 0 16px rgba(255, 198, 41, 0);
+  }
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.85rem 2rem;
+  background: linear-gradient(100deg, var(--navy-950), var(--navy) 62%, var(--navy-light));
+  border-bottom: 3px solid var(--gold);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(6, 18, 56, 0.28);
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.brand::before {
+  content: '\2605';
+  margin-right: 0.45rem;
+  font-size: 0.95em;
+  color: var(--gold);
+}
+
+.brand span {
+  color: var(--gold);
+}
+
+.navbar nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.navbar nav a {
+  position: relative;
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  color: #d3ddff;
+  font-family: var(--font-display);
+  font-weight: 600;
+  transition:
+    color 0.2s,
+    background 0.2s,
+    transform 0.3s var(--spring);
+}
+
+.navbar nav a:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.navbar nav a.active {
+  color: var(--navy-950);
+  background: var(--gold);
+  box-shadow: 0 3px 0 var(--gold-deep);
+}
+
+.nav-user {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.9rem;
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.nav-button {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--gold);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    transform 0.3s var(--spring);
+}
+
+.nav-button:hover {
+  background: var(--gold);
+  color: var(--navy-950);
+  transform: translateY(-2px);
+}
+
+/* ---------- Layout ---------- */
+.page {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.page-title {
+  margin-bottom: 1.75rem;
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  font-weight: 800;
+  color: var(--navy-900);
+}
+
+.page-title::after {
+  content: '';
+  display: block;
+  width: 4rem;
+  height: 6px;
+  margin-top: 0.5rem;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-deep));
+}
+
+.status {
+  padding: 3rem 0;
+  text-align: center;
+  color: var(--muted);
+}
+
+.status.error {
+  color: var(--danger);
+}
+
+/* ---------- Buttons ---------- */
+.button {
+  display: inline-block;
+  padding: 0.85rem 1.8rem;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--gold), var(--gold-deep));
+  box-shadow: 0 4px 0 #c98200;
+  color: var(--navy-950);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform 0.3s var(--spring),
+    box-shadow 0.2s;
+}
+
+.button:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow:
+    0 7px 0 #c98200,
+    0 12px 24px rgba(245, 163, 0, 0.4);
+}
+
+.button:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #c98200;
+}
+
+.button-small {
+  padding: 0.5rem 1.2rem;
+  font-size: 0.9rem;
+  box-shadow: 0 3px 0 #c98200;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: default;
+  transform: none;
+}
+
+/* ---------- Home hero ---------- */
+.hero {
+  position: relative;
+  max-width: 980px;
+  margin: 3rem auto;
+  padding: 5.5rem 2rem;
+  overflow: hidden;
+  text-align: center;
+  border: 3px solid transparent;
+  border-radius: 28px;
+  background:
+    linear-gradient(115deg, transparent 0 60%, rgba(255, 198, 41, 0.14) 60% 62%, transparent 62% 66%, rgba(255, 198, 41, 0.09) 66% 67%, transparent 67%) padding-box,
+    radial-gradient(620px 320px at 82% 0%, rgba(255, 198, 41, 0.3), transparent 62%) padding-box,
+    linear-gradient(135deg, var(--navy-950), var(--navy) 55%, var(--navy-light)) padding-box,
+    var(--grad-border) border-box;
+  animation: spin-angle 7s linear infinite;
+  box-shadow: var(--shadow-lg);
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 6.4vw, 4.4rem);
+  font-weight: 800;
+  line-height: 1.04;
+  color: #fff;
+}
+
+.hero .accent {
+  color: var(--gold);
+  text-shadow: 0 0 28px rgba(255, 198, 41, 0.45);
+}
+
+.hero p {
+  max-width: 640px;
+  margin: 1.5rem auto 2.25rem;
+  font-size: 1.15rem;
+  line-height: 1.65;
+  color: #d5dfff;
+}
+
+/* ---------- About ---------- */
+.about {
+  max-width: 740px;
+  margin: 4rem auto;
+  padding: 2.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 8px solid var(--gold);
+  border-radius: 18px;
+  box-shadow: var(--shadow-sm);
+}
+
+.about h1 {
+  margin-bottom: 1.25rem;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--navy-900);
+}
+
+.about p {
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+/* ---------- Auth ---------- */
+.auth {
+  max-width: 440px;
+  margin: 3rem auto;
+  padding: 2.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 6px solid var(--gold);
+  border-radius: 18px;
+  box-shadow: var(--shadow-lg);
+}
+
+.auth h1 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--navy-900);
+}
+
+.auth form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.auth label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.auth input,
+.chat-panel input {
+  padding: 0.7rem 0.9rem;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.auth input:focus,
+.chat-panel input:focus {
+  outline: none;
+  border-color: var(--gold-deep);
+  box-shadow: 0 0 0 4px rgba(255, 198, 41, 0.3);
+}
+
+.muted {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.auth .muted a {
+  color: var(--navy);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.form-error {
+  padding: 0.65rem 0.85rem;
+  background: #fdecea;
+  border: 1px solid #f3b8b3;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: var(--danger);
+}
+
+/* ---------- Product grid and cards ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.6rem;
+  perspective: 1200px;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 2px solid transparent;
+  border-radius: 18px;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(var(--border), var(--border)) border-box;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.4s var(--spring),
+    box-shadow 0.3s;
+}
+
+/* Hover: the card lifts in 3D, glows, and its border becomes an animated navy-and-gold ring. */
+.card:hover {
+  transform: translateY(-9px) rotateX(2.5deg) scale(1.015);
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    var(--grad-border) border-box;
+  animation: spin-angle 2.4s linear infinite;
+  box-shadow:
+    0 24px 46px rgba(13, 42, 133, 0.3),
+    0 0 0 4px rgba(255, 198, 41, 0.16);
+}
+
+.card-image {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.7s var(--ease-out);
+}
+
+.card:hover .card-image img {
+  transform: scale(1.09);
+}
+
+.card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1.05rem 1.15rem 1.2rem;
+}
+
+.card-body h3 {
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--navy-900);
+}
+
+.clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.15rem;
+}
+
+/* A clear, high-contrast price tag. */
+.price {
+  font-family: var(--font-display);
+  font-weight: 800;
+  white-space: nowrap;
+  color: var(--navy);
+}
+
+.price-tag {
+  display: inline-block;
+  padding: 0.22rem 0.75rem;
+  background: var(--navy);
+  border-radius: 10px;
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.25);
+  font-size: 1.2rem;
+  line-height: 1.3;
+  color: var(--gold);
+}
+
+.price-tag.large {
+  margin: 0;
+  padding: 0.3rem 1rem;
+  font-size: 2rem;
+}
+
+/* High-contrast action button at the bottom of a card. */
+.card-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: auto;
+  padding: 0.7rem 1rem;
+  background: var(--gold);
+  border-radius: 12px;
+  box-shadow: 0 4px 0 var(--gold-deep);
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--navy-950);
+  transition:
+    background 0.25s,
+    color 0.25s,
+    box-shadow 0.25s;
+}
+
+.card-cta span {
+  display: inline-block;
+  transition: transform 0.3s var(--spring);
+}
+
+.card:hover .card-cta {
+  background: var(--navy);
+  box-shadow: 0 4px 0 var(--navy-950);
+  color: var(--gold);
+}
+
+.card:hover .card-cta span {
+  transform: translateX(5px);
+}
+
+/* Pulsing urgency badge on products that are running low. */
+.selling-fast {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.8rem;
+  z-index: 2;
+  padding: 0.3rem 0.8rem;
+  background: var(--gold);
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--navy-950);
+  animation: pulse-urgent 1.8s ease-in-out infinite;
+}
+
+.sold-out-tag {
+  align-self: flex-start;
+  padding: 0.15rem 0.6rem;
+  background: #fdecea;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--danger);
+}
+
+/* ---------- Stock status badges ---------- */
+.stock-line {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 0.3rem;
+}
+
+.stock-badge {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 0.14rem 0.6rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.stock-badge.in_stock {
+  background: #e0f6e8;
+  border-color: #8fd3a8;
+  color: var(--success);
+}
+
+.stock-badge.low_stock {
+  background: var(--gold-soft);
+  border-color: #f0c561;
+  color: #7a4b00;
+}
+
+.stock-badge.out_of_stock {
+  background: #fdecea;
+  border-color: #f3b8b3;
+  color: var(--danger);
+}
+
+.size-chip {
+  padding: 0.05rem 0.45rem;
+  background: var(--navy);
+  border-radius: 6px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--gold);
+}
+
+/* ---------- Product detail ---------- */
+.back {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--navy);
+  transition: transform 0.3s var(--spring);
+}
+
+.back:hover {
+  transform: translateX(-5px);
+}
+
+.detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 2.75rem;
+  align-items: start;
+}
+
+.detail-image {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  border: 2px solid var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow-lg);
+}
+
+.detail-image img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  transition: transform 0.7s var(--ease-out);
+}
+
+.detail-image:hover img {
+  transform: scale(1.07);
+}
+
+.detail-info h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.08;
+  color: var(--navy-900);
+}
+
+.detail-info p {
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* The price tag is a <p>, so it must out-rank the grey paragraph color above. */
+.detail-info p.price-tag {
+  line-height: 1.3;
+  color: var(--gold);
+}
+
+.price-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin: 0.75rem 0 1.1rem;
+}
+
+.detail-info h2 {
+  margin: 1.9rem 0 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+
+.detail-info .eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.chips,
+.sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chips li {
+  padding: 0.3rem 0.85rem;
+  background: var(--tint);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.sizes li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 5.5rem;
+  padding: 0.65rem 0.85rem;
+  background: var(--surface);
+  border: 2px solid var(--navy);
+  border-radius: 12px;
+  transition:
+    transform 0.3s var(--spring),
+    box-shadow 0.2s;
+}
+
+.sizes li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(13, 42, 133, 0.2);
+}
+
+.sizes li strong {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+}
+
+.sizes li span {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.sizes li.out {
+  background: var(--tint);
+  border-color: var(--border);
+  opacity: 0.6;
+}
+
+.sizes li.out:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.sizes li.out strong {
+  text-decoration: line-through;
+}
+
+/* ---------- Chat results on the page ---------- */
+.results {
+  margin-bottom: 2.75rem;
+  padding: 1.6rem;
+  background: linear-gradient(135deg, var(--tint), #fff7da);
+  border: 1px solid var(--border);
+  border-left: 8px solid var(--gold);
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  scroll-margin-top: 5.5rem;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.3rem;
+}
+
+.results-header h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--navy-900);
+}
+
+.results-header p {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* ---------- Chat ---------- */
+.chat {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.9rem;
+}
+
+.chat-toggle {
+  position: relative;
+  width: 4.3rem;
+  height: 4.3rem;
+  border: 0;
+  border-radius: 50%;
+  background: linear-gradient(145deg, var(--gold), var(--gold-deep));
+  color: var(--navy-950);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  cursor: pointer;
+  animation: toggle-ping 2.8s ease-out infinite;
+  transition: transform 0.4s var(--spring);
+}
+
+.chat-toggle:hover {
+  transform: scale(1.14) rotate(-7deg);
+}
+
+.chat-toggle:active {
+  transform: scale(0.93);
+}
+
+.toggle-dot {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.3rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #29d36a;
+  animation: glow-green 1.8s ease-in-out infinite;
+}
+
+.chat-panel {
+  display: flex;
+  flex-direction: column;
+  width: min(390px, calc(100vw - 3rem));
+  height: min(540px, calc(100vh - 8.5rem));
+  overflow: hidden;
+  transform-origin: bottom right;
+  border: 3px solid transparent;
+  border-radius: 22px;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    var(--grad-border) border-box;
+  box-shadow: 0 26px 60px rgba(6, 18, 56, 0.45);
+  /* A playful spring when it opens, and a slowly turning gradient border. */
+  animation-name: chat-pop, spin-angle;
+  animation-duration: 0.65s, 6s;
+  animation-timing-function: var(--spring), linear;
+  animation-iteration-count: 1, infinite;
+  animation-fill-mode: both, none;
+  transition: width 0.45s var(--spring);
+}
+
+.chat-panel.wide {
+  width: min(660px, calc(100vw - 3rem));
+}
+
+.chat-panel header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(100deg, var(--navy-950), var(--navy));
+  color: #fff;
+}
+
+.chat-title {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.chat-title strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.chat-avatar {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 3px rgba(255, 198, 41, 0.3);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--navy-950);
+}
+
+.online {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  color: #b9f5cf;
+}
+
+.online-dot {
+  width: 0.58rem;
+  height: 0.58rem;
+  border-radius: 50%;
+  background: #29d36a;
+  animation: glow-green 1.8s ease-in-out infinite;
+}
+
+.chat-panel header button {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.3s var(--spring);
+}
+
+.chat-panel header button:hover {
+  background: var(--gold);
+  color: var(--navy-950);
+  transform: rotate(90deg);
+}
+
+.chat-messages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1rem;
+  overflow-y: auto;
+  background:
+    radial-gradient(500px 220px at 100% 0%, rgba(255, 198, 41, 0.12), transparent 70%), var(--bg);
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  animation: bubble-in 0.5s var(--spring) both;
+}
+
+.message.assistant {
+  align-items: flex-start;
+  transform-origin: bottom left;
+}
+
+.message.user {
+  align-items: flex-end;
+  transform-origin: bottom right;
+}
+
+.bubble {
+  max-width: 86%;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  padding: 0.6rem 0.95rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.bubble.assistant {
+  align-self: flex-start;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--gold);
+  border-radius: 16px 16px 16px 4px;
+  box-shadow: var(--shadow-sm);
+}
+
+.bubble.user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, var(--navy), var(--navy-light));
+  border-radius: 16px 16px 4px 16px;
+  box-shadow: 0 4px 12px rgba(13, 42, 133, 0.28);
+  color: #fff;
+}
+
+.bubble.typing {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.8rem 1rem;
+}
+
+.bubble.typing i {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--navy);
+  animation: typing-bounce 1.1s ease-in-out infinite;
+}
+
+.bubble.typing i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.bubble.typing i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.chat-panel form {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.8rem;
+  border-top: 1px solid var(--border);
+  background: #fff;
+}
+
+.chat-panel form input {
+  flex: 1;
+  min-width: 0;
+}
+
+.chat-panel form button {
+  padding: 0 1.15rem;
+  border: 0;
+  border-radius: 12px;
+  background: var(--gold);
+  box-shadow: 0 3px 0 var(--gold-deep);
+  color: var(--navy-950);
+  font-family: var(--font-display);
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.3s var(--spring);
+}
+
+.chat-panel form button:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.04);
+}
+
+.chat-panel form button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Product cards inside the chat */
+.chat-cards {
+  display: flex;
+  gap: 0.55rem;
+  max-width: 100%;
+  margin: 0;
+  padding: 0.3rem 0.2rem 0.5rem;
+  list-style: none;
+  overflow-x: auto;
+}
+
+.chat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  width: 7.8rem;
+  padding: 0.45rem;
+  background: #fff;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  transition:
+    transform 0.35s var(--spring),
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.chat-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+  box-shadow: 0 10px 20px rgba(13, 42, 133, 0.22);
+}
+
+.chat-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  border-radius: 8px;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.chat-card:hover img {
+  transform: scale(1.08);
+}
+
+.chat-card-name {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--navy-900);
+}
+
+.chat-card-meta {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--navy);
+}
+
+.chat-card .stock-badge {
+  margin-top: 0.15rem;
+  padding: 0.05rem 0.42rem;
+  font-size: 0.62rem;
+}
+
+/* ---------- Interactive comparison table ---------- */
+.compare {
+  align-self: stretch;
+  max-width: 100%;
+  overflow-x: auto;
+  background: #fff;
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.compare table {
+  width: 100%;
+  min-width: max-content;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+
+.compare th,
+.compare td {
+  padding: 0.55rem 0.65rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+  transition: background 0.2s;
+}
+
+.compare tbody tr:last-child th,
+.compare tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.compare thead th,
+.compare thead td {
+  background: linear-gradient(180deg, var(--navy), var(--navy-900));
+  border-bottom: 3px solid var(--gold);
+}
+
+.compare thead th {
+  min-width: 8rem;
+  max-width: 10rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: #fff;
+}
+
+.compare-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.compare-head img {
+  width: 4.5rem;
+  height: 4.5rem;
+  object-fit: contain;
+  background: #fff;
+  border: 2px solid var(--gold);
+  border-radius: 10px;
+  transition: transform 0.4s var(--spring);
+}
+
+.compare-head:hover img {
+  transform: scale(1.12) rotate(-3deg);
+}
+
+.compare-head:hover span {
+  color: var(--gold);
+  text-decoration: underline;
+}
+
+.compare tbody th {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  min-width: 4.5rem;
+  max-width: 5.5rem;
+  background: var(--tint);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+
+/* Hovering a row, or a product's column, lights it up. */
+.compare tbody tr:hover td {
+  background: #f1f5ff;
+}
+
+.compare tbody tr:hover th {
+  background: var(--gold);
+  color: var(--navy-950);
+}
+
+.compare td.col-hover,
+.compare tbody tr:hover td.col-hover {
+  background: var(--gold-soft);
+}
+
+.compare thead th.col-hover {
+  background: linear-gradient(180deg, var(--navy-light), var(--navy));
+}
+
+.compare td.best {
+  background: #fff8dc;
+}
+
+.compare-price {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--navy-900);
+}
+
+.compare td small {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #7a4b00;
+}
+
+.compare td.features {
+  min-width: 8rem;
+  max-width: 10rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 720px) {
+  .detail {
+    grid-template-columns: 1fr;
+  }
+
+  .page {
+    padding: 1.25rem;
+  }
+
+  .navbar {
+    padding: 0.75rem 1rem;
+  }
+
+  .hero {
+    padding: 3.5rem 1.25rem;
+  }
+}
+
+/* ---------- Respect "reduce motion" ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

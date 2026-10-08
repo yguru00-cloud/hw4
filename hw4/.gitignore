@@ -1,0 +1,25 @@
+# Secrets: the real key lives only in .env, which must never be committed
+.env
+.env.*
+!.env.example
+
+# Local data pack (campus_customs.db and the product photos); placed in data/ by hand
+data/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Node / build output
+node_modules/
+frontend/dist/
+*.tsbuildinfo
+
+# Editor and tool files
+.claude/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,819 @@
+/* ==========================================================================
+   Yale spirit and shop sections
+   Handsome Dan, the ticker, the backdrop, the footer and the Products page's categories.
+   Uses the design tokens defined in index.css.
+   ========================================================================== */
+
+/* Page content sits above the faint backdrop. */
+.page,
+.site-footer {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes drift {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 1.6vw 2vh;
+  }
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes bd-bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 0.25em;
+  }
+}
+
+@keyframes bd-blink {
+  0%,
+  91%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.08);
+  }
+}
+
+@keyframes bd-pant {
+  0%,
+  100% {
+    transform: translateY(0) scaleY(1);
+  }
+  50% {
+    transform: translateY(0.18em) scaleY(1.12);
+  }
+}
+
+@keyframes bd-bark {
+  0% {
+    transform: scale(1) rotate(0);
+  }
+  30% {
+    transform: scale(1.12) rotate(-5deg);
+  }
+  60% {
+    transform: scale(0.97) rotate(3deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+
+/* ---------- Backdrop: oversized faint words and paw prints ---------- */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bg-word {
+  position: absolute;
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.9;
+  white-space: nowrap;
+  color: var(--navy);
+  opacity: 0.05;
+  user-select: none;
+  animation: drift 24s ease-in-out infinite alternate;
+}
+
+.w-yale {
+  top: 6vh;
+  left: -2vw;
+  font-size: clamp(8rem, 24vw, 22rem);
+  transform: rotate(-6deg);
+}
+
+.w-boola {
+  right: -4vw;
+  bottom: 28vh;
+  font-size: clamp(3rem, 9vw, 8rem);
+  transform: rotate(4deg);
+  animation-duration: 30s;
+}
+
+.w-lux {
+  bottom: 3vh;
+  left: 3vw;
+  font-size: clamp(2.4rem, 7vw, 6rem);
+  transform: rotate(-3deg);
+  animation-duration: 27s;
+}
+
+.w-year {
+  top: 40vh;
+  right: 5vw;
+  font-size: clamp(5rem, 15vw, 13rem);
+  color: var(--gold-deep);
+  opacity: 0.1;
+  transform: rotate(5deg);
+  animation-duration: 33s;
+}
+
+.paw {
+  position: absolute;
+  width: 3.2rem;
+  height: 3.6rem;
+  opacity: 0.08;
+}
+
+.paw i {
+  position: absolute;
+  background: var(--navy);
+}
+
+.paw .pad {
+  top: 42%;
+  left: 17%;
+  width: 66%;
+  height: 54%;
+  border-radius: 50% 50% 46% 46%;
+}
+
+.paw .toe {
+  width: 23%;
+  height: 31%;
+  border-radius: 50%;
+}
+
+.paw .t1 {
+  top: 30%;
+  left: 0;
+}
+
+.paw .t2 {
+  top: 4%;
+  left: 20%;
+}
+
+.paw .t3 {
+  top: 4%;
+  left: 57%;
+}
+
+.paw .t4 {
+  top: 30%;
+  left: 77%;
+}
+
+.p1 {
+  top: 16vh;
+  left: 62vw;
+  transform: rotate(18deg);
+}
+
+.p2 {
+  top: 28vh;
+  left: 72vw;
+  transform: rotate(32deg);
+}
+
+.p3 {
+  top: 52vh;
+  left: 8vw;
+  transform: rotate(-14deg);
+}
+
+.p4 {
+  top: 64vh;
+  left: 18vw;
+  transform: rotate(-4deg);
+}
+
+.p5 {
+  top: 78vh;
+  left: 54vw;
+  transform: rotate(24deg);
+}
+
+.p6 {
+  top: 86vh;
+  left: 68vw;
+  transform: rotate(40deg);
+}
+
+.p2 i,
+.p4 i,
+.p6 i {
+  background: var(--gold-deep);
+}
+
+/* ---------- Ticker ---------- */
+.ticker {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  padding: 0.42rem 0;
+  background: var(--navy-950);
+  border-bottom: 1px solid rgba(255, 198, 41, 0.35);
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 60s linear infinite;
+}
+
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+.ticker-run {
+  display: flex;
+}
+
+.ticker-item {
+  padding: 0 1.5rem;
+  white-space: nowrap;
+}
+
+.ticker-star {
+  margin-right: 0.35rem;
+  color: #fff;
+}
+
+/* ---------- Handsome Dan, the Yale bulldog (plain HTML elements, styled with CSS) ---------- */
+.bulldog {
+  --bd: 11rem;
+  position: relative;
+  display: block;
+  flex: none;
+  width: var(--bd);
+  height: calc(var(--bd) * 0.98);
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: calc(var(--bd) / 11); /* 1em is one eleventh of his width, so he scales as a whole */
+  cursor: pointer;
+  animation: bd-bob 3.4s ease-in-out infinite;
+  transition: transform 0.45s var(--spring);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bulldog:hover {
+  transform: rotate(-4deg) scale(1.06);
+}
+
+.bulldog.barking {
+  animation:
+    bd-bark 0.55s var(--spring),
+    bd-bob 3.4s ease-in-out infinite;
+}
+
+.bulldog span {
+  position: absolute;
+  display: block;
+}
+
+.bd-ear {
+  top: 0.15em;
+  width: 2.9em;
+  height: 3.3em;
+  background: linear-gradient(160deg, #d6a96f, #a9743b);
+}
+
+.bd-ear::after {
+  content: '';
+  position: absolute;
+  inset: 0.6em;
+  border-radius: inherit;
+  background: #e9ac9c;
+}
+
+.bd-ear.left {
+  left: 0.6em;
+  transform: rotate(-24deg);
+  border-radius: 90% 10% 55% 45%;
+}
+
+.bd-ear.right {
+  right: 0.6em;
+  transform: rotate(24deg);
+  border-radius: 10% 90% 45% 55%;
+}
+
+.bd-head {
+  top: 1.5em;
+  left: 1em;
+  width: 9em;
+  height: 7.7em;
+  border-radius: 48% 48% 44% 44% / 54% 54% 46% 46%;
+  background: radial-gradient(circle at 50% 30%, #fffaf0, #f1dfc1);
+  box-shadow:
+    inset -0.5em -0.6em 0 rgba(140, 95, 50, 0.16),
+    0 0.6em 1.2em rgba(6, 18, 56, 0.3);
+}
+
+.bd-patch {
+  top: 2.3em;
+  left: 2.35em;
+  width: 3.4em;
+  height: 3.3em;
+  border-radius: 55% 45% 50% 50%;
+  background: #c98f4f;
+  opacity: 0.92;
+}
+
+.bd-wrinkle {
+  height: 0.7em;
+  border-top: 0.13em solid rgba(150, 100, 50, 0.45);
+  border-radius: 50%;
+}
+
+.bd-wrinkle.w1 {
+  top: 2.15em;
+  left: 4em;
+  width: 3em;
+}
+
+.bd-wrinkle.w2 {
+  top: 2.7em;
+  left: 4.5em;
+  width: 2em;
+}
+
+.bd-eye {
+  top: 3.5em;
+  width: 1.75em;
+  height: 1.75em;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 0.12em #4a3320;
+  animation: bd-blink 5s infinite;
+}
+
+.bd-eye::before {
+  content: '';
+  position: absolute;
+  inset: 0.28em;
+  border-radius: 50%;
+  background: #1b1209;
+}
+
+.bd-eye::after {
+  content: '';
+  position: absolute;
+  top: 0.3em;
+  left: 0.55em;
+  width: 0.4em;
+  height: 0.4em;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.bd-eye.left {
+  left: 3.2em;
+}
+
+.bd-eye.right {
+  left: 6.05em;
+}
+
+.bd-brow {
+  top: 2.95em;
+  width: 2em;
+  height: 0.42em;
+  border-radius: 0.3em;
+  background: #7a4f26;
+}
+
+.bd-brow.left {
+  left: 3.05em;
+  transform: rotate(13deg);
+}
+
+.bd-brow.right {
+  left: 5.95em;
+  transform: rotate(-13deg);
+}
+
+.bd-snout {
+  top: 4.9em;
+  left: 2.7em;
+  width: 5.6em;
+  height: 3.5em;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 28%, #fffaf0, #f2e3c6);
+  box-shadow: inset 0 -0.35em 0 rgba(150, 100, 50, 0.16);
+}
+
+.bd-jowl {
+  top: 6.2em;
+  width: 3.1em;
+  height: 2.8em;
+  border-radius: 50% 50% 62% 62%;
+  background: radial-gradient(circle at 50% 25%, #fff6e6, #f0dcba);
+  box-shadow: inset 0 -0.3em 0 rgba(150, 100, 50, 0.2);
+}
+
+.bd-jowl.left {
+  left: 2.15em;
+}
+
+.bd-jowl.right {
+  left: 5.75em;
+}
+
+.bd-tongue {
+  top: 7.15em;
+  left: 4.95em;
+  width: 1.15em;
+  height: 1.45em;
+  border-radius: 30% 30% 60% 60%;
+  background: linear-gradient(#ff8da5, #f2587c);
+  animation: bd-pant 1.4s ease-in-out infinite;
+}
+
+.bulldog.barking .bd-tongue {
+  animation: bd-pant 0.25s ease-in-out 8;
+}
+
+.bd-smile {
+  top: 6.5em;
+  width: 1.4em;
+  height: 0.85em;
+  border-bottom: 0.14em solid #5a3a1e;
+  border-radius: 0 0 100% 100%;
+}
+
+.bd-smile.left {
+  left: 4.1em;
+}
+
+.bd-smile.right {
+  left: 5.5em;
+}
+
+.bd-tooth {
+  top: 6.55em;
+  width: 0.62em;
+  height: 0.85em;
+  border: 0.06em solid #d9c8a4;
+  border-radius: 0.12em 0.12em 0.32em 0.32em;
+  background: #fff;
+}
+
+.bd-tooth.left {
+  left: 4.15em;
+}
+
+.bd-tooth.right {
+  left: 6.22em;
+}
+
+.bd-nose {
+  top: 4.8em;
+  left: 4.5em;
+  width: 2em;
+  height: 1.3em;
+  border-radius: 45% 45% 62% 62%;
+  background: #1b1b24;
+}
+
+.bd-nose::after {
+  content: '';
+  position: absolute;
+  top: 0.2em;
+  left: 0.35em;
+  width: 0.7em;
+  height: 0.3em;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.bd-mouth {
+  top: 6em;
+  left: 5.43em;
+  width: 0.14em;
+  height: 0.8em;
+  background: #5a3a1e;
+}
+
+.bd-collar {
+  top: 8.6em;
+  left: 2.4em;
+  width: 6.2em;
+  height: 1.5em;
+  border-radius: 0.8em;
+  background: linear-gradient(var(--navy-light), var(--navy-900));
+  box-shadow: 0 0.18em 0 var(--gold);
+}
+
+.bd-tag {
+  top: 0.55em;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 1.7em;
+  height: 1.7em;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0.12em 0.3em rgba(0, 0, 0, 0.35);
+  transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-size: 1em;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--navy-950);
+}
+
+.bd-speech {
+  right: -0.4em;
+  bottom: 100%;
+  z-index: 3;
+  margin-bottom: 0.4em;
+  padding: 0.45em 0.9em;
+  border-radius: 1em;
+  background: var(--gold);
+  box-shadow: 0 0.3em 0.9em rgba(6, 18, 56, 0.3);
+  font-family: var(--font-display);
+  font-size: 1.35em;
+  font-weight: 800;
+  white-space: nowrap;
+  color: var(--navy-950);
+  animation: bubble-in 0.4s var(--spring) both;
+}
+
+.bd-speech::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: 2em;
+  border: 0.45em solid transparent;
+  border-top-color: var(--gold);
+}
+
+/* Where he appears */
+.hero-dog {
+  --bd: 8.5rem;
+  position: absolute !important;
+  right: 2.2rem;
+  bottom: -2.6rem;
+}
+
+.banner-dog {
+  --bd: 8.2rem;
+  margin-bottom: -1.7rem;
+}
+
+.footer-dog {
+  --bd: 7rem;
+  margin-bottom: -1.2rem;
+}
+
+/* ---------- Products page: banner, category bar and sections ---------- */
+.shop-banner {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: 9.5rem;
+  margin-bottom: 1.4rem;
+  padding: 1.7rem 2rem 0;
+  overflow: hidden;
+  border-radius: 24px;
+  background:
+    linear-gradient(115deg, transparent 0 62%, rgba(255, 198, 41, 0.15) 62% 64%, transparent 64% 68%, rgba(255, 198, 41, 0.1) 68% 69%, transparent 69%),
+    radial-gradient(520px 260px at 90% 0%, rgba(255, 198, 41, 0.3), transparent 62%),
+    linear-gradient(135deg, var(--navy-950), var(--navy) 60%, var(--navy-light));
+  box-shadow: var(--shadow-lg);
+}
+
+.shop-banner-text {
+  align-self: center;
+  padding-bottom: 1.4rem;
+}
+
+.shop-banner h1 {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1;
+  color: #fff;
+}
+
+.shop-banner h1::after {
+  content: '';
+  display: block;
+  width: 4rem;
+  height: 6px;
+  margin-top: 0.6rem;
+  border-radius: 3px;
+  background: var(--gold);
+}
+
+.shop-banner p {
+  max-width: 34rem;
+  margin-top: 0.8rem;
+  line-height: 1.55;
+  color: #d5dfff;
+}
+
+.category-nav {
+  position: sticky;
+  top: 4.5rem;
+  z-index: 9;
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 0.6rem;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(8px);
+}
+
+.cat-chip {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.95rem;
+  border: 2px solid var(--border);
+  border-radius: 999px;
+  background: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--navy);
+  transition:
+    transform 0.3s var(--spring),
+    background 0.2s,
+    border-color 0.2s;
+}
+
+.cat-chip span {
+  padding: 0 0.5rem;
+  border-radius: 999px;
+  background: var(--navy);
+  font-size: 0.78rem;
+  color: var(--gold);
+}
+
+.cat-chip:hover {
+  transform: translateY(-3px);
+  border-color: var(--navy);
+}
+
+.cat-chip.active {
+  border-color: var(--gold-deep);
+  background: var(--gold);
+  color: var(--navy-950);
+}
+
+.category {
+  margin-bottom: 3.75rem;
+  scroll-margin-top: 9rem;
+  /* The ghost word behind a heading can be wider than a phone; cut it at the section's sides. */
+  overflow-x: clip;
+}
+
+.category-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.4rem;
+}
+
+/* A huge, faint version of the section's first word sits behind its heading. */
+.category-head::before {
+  content: attr(data-ghost);
+  position: absolute;
+  top: -1.6rem;
+  left: -0.3rem;
+  z-index: -1;
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 9vw, 6.5rem);
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+  color: rgba(13, 42, 133, 0.06);
+  pointer-events: none;
+}
+
+.category-head h2 {
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  font-weight: 800;
+  color: var(--navy-900);
+}
+
+.category-count {
+  padding: 0.12rem 0.7rem;
+  border-radius: 999px;
+  background: var(--gold);
+  box-shadow: 0 3px 0 var(--gold-deep);
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--navy-950);
+}
+
+.category-head::after {
+  content: '';
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  margin-top: 4rem;
+  padding: 2.75rem 2rem 0;
+  overflow: hidden;
+  border-top: 4px solid var(--gold);
+  background:
+    radial-gradient(520px 220px at 0% 100%, rgba(255, 198, 41, 0.18), transparent 60%),
+    linear-gradient(135deg, var(--navy-950), var(--navy));
+  color: #fff;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: flex-end;
+  gap: 2rem;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.footer-text {
+  align-self: center;
+  padding-bottom: 2rem;
+}
+
+.footer-motto {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 5vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-shadow: 0 0 28px rgba(255, 198, 41, 0.35);
+}
+
+.footer-sub {
+  margin-top: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--navy-soft);
+}
+
+.footer-note {
+  margin-top: 0.9rem;
+  font-size: 0.9rem;
+  color: #c5d2ff;
+}
+
+@media (max-width: 1000px) {
+  .hero-dog {
+    display: none !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .shop-banner {
+    padding: 1.3rem 1.2rem 0;
+  }
+
+  .banner-dog {
+    --bd: 5.5rem;
+  }
+
+  .footer-dog {
+    --bd: 5rem;
+  }
+
+  .category-nav {
+    top: 4rem;
+  }
+}

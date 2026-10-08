@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Campus Customs – App Check</title>
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #14213d; background: #f5f7fc; margin: 0; line-height: 1.55; }
+    main { max-width: 960px; margin: 0 auto; padding: 32px 20px 56px; }
+    h1 { margin: 0 0 6px; font-size: 1.9rem; }
+    .intro { color: #4a5568; margin: 0 0 28px; }
+    section { background: #fff; border: 1px solid #d9e0f0; border-left: 5px solid #ffc629; border-radius: 10px; padding: 18px 22px 22px; margin-bottom: 28px; }
+    h2 { margin: 0 0 12px; font-size: 1.3rem; color: #0d2a85; }
+    img { display: block; width: 100%; height: auto; border: 1px solid #d9e0f0; border-radius: 8px; }
+    p { margin: 14px 0 0; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Campus Customs – App Check</h1>
+    <p class="intro">Screenshots of the running site (React frontend + FastAPI backend + SQLite database) with the chat assistant answering real questions.</p>
+
+    <section>
+      <h2>1. Chat checks inventory levels and prices from the database</h2>
+      <img src="app_check_images/inventory.png" alt="Product page for the Champion Reverse Weave Hoodie with the chat reporting its price and stock by size">
+      <p>Asked about the Champion Reverse Weave Hoodie, the assistant answers $68, 20 in medium and XL sold out (0). These match the database, and the page's own size tile for M also reads 20 in stock.</p>
+    </section>
+
+    <section>
+      <h2>2. Category question shows dynamic product cards</h2>
+      <img src="app_check_images/category_search.png" alt="Home page showing a Results from chat section with hoodie product cards after asking what hoodies are available">
+      <p>After "What hoodies do you have?", the chat replies and the page fills with a "Results from chat" grid of 12 hoodie cards (also shown as compact cards in the chat). Each card shows the price and a stock badge pulled from the database.</p>
+    </section>
+
+    <section>
+      <h2>3. Usability feature: side-by-side comparison table with stock badges</h2>
+      <img src="app_check_images/usability_feature.png" alt="Chat comparison table of the Fencing Left Chest Hoodie and the Basic Hoodie Big Yale with Low Stock and In Stock badges">
+      <p>Asking to compare two hoodies returns a table with price, type, colors, sizes in stock and features in one view. The availability row uses visual stock badges: Low Stock for the Fencing Left Chest Hoodie and In Stock for the Basic Hoodie Big Yale.</p>
+    </section>
+  </main>
+</body>
+</html>

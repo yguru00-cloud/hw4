@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+bcrypt
+email-validator
+pydantic-ai-slim[openai]
+python-dotenv
